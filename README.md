@@ -1,2 +1,2 @@
 # acc_generators
-Selenium account generators
+Selenium-based account generators for different sites
