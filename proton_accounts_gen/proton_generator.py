@@ -2,6 +2,7 @@ from selenium import webdriver
 import random
 import string
 import time
+import sys
 
 #Login and password generator
 def get_random_string(length=12):
@@ -20,7 +21,7 @@ def has_page_loaded_check(driver):
 
 def save_pass_to_file(login, password, filename='proton_acc.txt'):
     with open(filename,'a') as f:
-        f.write(f"{login}:{password}")
+        f.write(f"{login}:{password}\n")
 
 def create_account(proton_register_url="https://account.protonvpn.com/signup?plan=free&currency=EUR&language=en"):
 
@@ -69,7 +70,9 @@ def create_account(proton_register_url="https://account.protonvpn.com/signup?pla
         form_email_elem.clear()
         form_email_elem.send_keys(recovery_email)
     except:
-        print("Recovery email input not found - continuing")
+        print("Recovery email input not found (wrong form) - restarting")
+        driver.close()
+        create_account(proton_register_url)
 
     #Submitting form
     time.sleep(2) #wait a while
@@ -92,7 +95,13 @@ def create_account(proton_register_url="https://account.protonvpn.com/signup?pla
     driver.close()
 
 if(__name__=="__main__"):
-    n = int(input("Enter a number of accounts needed: "))
+    if len(sys.argv)==1:
+        n = 10
+        print(f"Starting with default number of accounts to generate: {n}")
+    else:
+        n = int(sys.argv[1])
+        print(f"Number of accounts to generate: {n}")
+
     for i in range(n):
         create_account()
         time.sleep(1)

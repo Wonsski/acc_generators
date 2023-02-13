@@ -1,8 +1,8 @@
 # proton_generator.py
 
-Script uses Selenium to auto-generate free Proton VPN accounts (verification needed).
+Script uses Selenium to auto-generate free Proton (VPN, Mail etc.) accounts (verification needed).
 
-Verification: 
+Verification (change IP to have only captcha): 
 
     - First it asks for Captcha
     - Then they ask you for e-mail verification (10min mail works)
@@ -15,7 +15,9 @@ Script will wait for verification to complete.
 Script needs a geckodriver installed.
 
 ```python3
-python3 proton+generator.py
-Enter a number of accounts needed: X #X is a number
+python3 proton_generator.py [N - Number of accounts to generate, default 10]
+
+#example
+python3 proton_generator.py 7 #Will generate 7 accounts
 ```
 And make a verification!
